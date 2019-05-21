@@ -18,11 +18,36 @@ import os
 # Any results you write to the current directory are saved as output.
 store = pd.read_csv("google-play-store-apps/googleplaystore.csv",usecols = [0,1,2,3,4,5,6,7,8,9,10]) 
 
+
 #I dont wanna use "Current Ver" and "Android Ver" so ı use "usecols" 
+
 print(store.info())
+"""
 print(store.head(100)) #quick look at the csv from first index
 print(store.tail(100)) #quick look at the csv from first index
 print(store.sample(6)) #random 
+"""
+
+store.columns
+store.columns = store.columns.str.replace(" ","_")
+print(store.columns)
+print(store.dtypes)
+
+store.Content_Rating.unique()
+store.Content_Rating.value_counts().plot(kind='bar')
+plt.yscale('log')
+store.Genres.unique()
+
+
+twowaytable = pd.crosstab(index=store["Pri_Genres"],columns=store["Sec_Genres"])
+twowaytable.head()
+twowaytable.plot(kind="barh", figsize=(15,15),stacked=True)
+
+plt.legend(bbox_to_anchor=(1.0,1.0))
+
+
+store.Category.value_counts().plot(kind='barh',figsize= (12,8))
+#<matplotlib.axes._subplots.AxesSubplot at 0x7fd25a33b630>
 
 
 """
